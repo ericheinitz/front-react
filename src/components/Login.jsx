@@ -1,7 +1,32 @@
-import React from 'react'
-import { Navigate, Link, Routes, Route } from "react-router-dom";
+import { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
+import axios from '../api/axios';
 
 const Login = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [errors, setErrors] = useState({})
+    const navigate = useNavigate();
+    const csrf = () => axios.get('/sanctum/csrf-cookie')
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        await csrf()
+        try {
+            const response = await axios.post('/login', {
+                email: email,
+                password: password,
+            })
+            setEmail('')
+            setPassword('')
+            navigate('/')
+        } catch (error) {
+            if (error.response.status === 422) {
+                setErrors(error.response.data.errors)
+            }
+        }
+    }
+
     return (
         <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
             <div className="container mx-auto">
@@ -24,13 +49,12 @@ const Login = () => {
                             "
                         >
                             <div className="mb-10 text-center md:mb-16">middle-code</div>
-                            <form >
-                                {/* onSubmit={handleLogin} */}
+                            <form onSubmit={handleLogin}>
                                 <div className="mb-4">
                                     <input
                                         type="email"
-                                        // value={email}
-                                        // onChange={(e) => setEmail(e.target.value)}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         placeholder="Email"
                                         className="
                                             bordder-[#E9EDF4]
@@ -47,19 +71,19 @@ const Login = () => {
                                             focus-visible:shadow-none
                                             "
                                     />
-                                    {/* {errors.email && (
+                                    {errors.email && (
                                         <div className="flex">
                                             <span className="text-red-400 text-sm m-2 p-2">
                                                 {errors.email[0]}
                                             </span>
                                         </div>
-                                    )} */}
+                                    )}
                                 </div>
                                 <div className="mb-4">
                                     <input
                                         type="password"
-                                        // value={password}
-                                        // onChange={(e) => setPassword(e.target.value)}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         placeholder="Password"
                                         className="
                                             bordder-[#E9EDF4]
@@ -76,13 +100,13 @@ const Login = () => {
                                             focus-visible:shadow-none
                                             "
                                     />
-                                    {/* {errors.password && (
+                                    {errors.password && (
                                         <div className="flex">
                                             <span className="text-red-400 text-sm m-2 p-2">
                                                 {errors.password[0]}
                                             </span>
                                         </div>
-                                    )} */}
+                                    )}
                                 </div>
                                 <div className="mb-10">
                                     <button
