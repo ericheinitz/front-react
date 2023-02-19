@@ -9,6 +9,7 @@ const ResetPassword = () => {
     const [status, setStatus] = useState(null)
     const [password, setPassword] = useState('')
     const [password_confirmation, setPasswordConfirmation] = useState('')
+    const [loading, setLoading] = useState(false)
     const [searchParams] = useSearchParams()
     const { token } = useParams()
 
@@ -21,6 +22,7 @@ const ResetPassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         await csrf()
         setErrors({})
         setStatus(null)
@@ -32,6 +34,7 @@ const ResetPassword = () => {
                 password_confirmation: password_confirmation,
             })
             setStatus(response.data.status)
+            setLoading(false)
         } catch (error) {
             if (error.response.status === 422) {
                 setErrors(error.response.data.errors)
@@ -40,26 +43,15 @@ const ResetPassword = () => {
     }
 
     return (
-        <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
-            <div className="container mx-auto">
-                <div className="-mx-4 flex flex-wrap">
-                    <div className="w-full px-4">
-                        <div
-                            className="
-                                shadow-xl
-                                relative
-                                mx-auto
-                                max-w-[525px]
-                                overflow-hidden
-                                rounded-lg
-                                bg-white
-                                py-16
-                                px-10
-                                text-center
-                                sm:px-12
-                                md:px-[60px]
-                            "
-                        >
+        <>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row-reverse">
+                    <div className="text-center lg:text-left">
+                        <h1 className="text-5xl font-bold">Add Your new Password</h1>
+                        <p className="py-6">Welcome to middle-code.com. This is an app made in react, which consumes the backend services made in laravel.</p>
+                    </div>
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                        <div className="card-body">
                             {status && (
                                 <div className="bg-green-700 m-2 p-2 rounded text-white">
                                     {status}
@@ -68,30 +60,17 @@ const ResetPassword = () => {
                                     </div>
                                 </div>
                             )}
-                            <div className="mb-10 text-center md:mb-16">
-                                Add Your new Password
-                            </div>
                             <form onSubmit={handleSubmit}>
-                                <div className="mb-4">
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Password</span>
+                                    </label>
                                     <input
                                         type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Password"
-                                        className="
-                                            bordder-[#E9EDF4]
-                                            w-full
-                                            rounded-md
-                                            border
-                                            bg-[#FCFDFE]
-                                            py-3
-                                            px-5
-                                            text-base text-body-color
-                                            placeholder-[#ACB6BE]
-                                            outline-none
-                                            focus:border-primary
-                                            focus-visible:shadow-none
-                                        "
+                                        placeholder="password"
+                                        className="input input-bordered"
                                     />
                                     {errors.password && (
                                         <div className="flex">
@@ -100,51 +79,43 @@ const ResetPassword = () => {
                                             </span>
                                         </div>
                                     )}
+                                    <label className="label">
+                                    </label>
                                 </div>
-                                <div className="mb-4">
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Password Confirmation</span>
+                                    </label>
                                     <input
                                         type="password"
                                         value={password_confirmation}
                                         onChange={(e) => setPasswordConfirmation(e.target.value)}
                                         placeholder="Password Confirmation"
-                                        className="
-                                            bordder-[#E9EDF4]
-                                            w-full
-                                            rounded-md
-                                            border
-                                            bg-[#FCFDFE]
-                                            py-3
-                                            px-5
-                                            text-base text-body-color
-                                            placeholder-[#ACB6BE]
-                                            outline-none
-                                            focus:border-primary
-                                            focus-visible:shadow-none
-                                        "
+                                        className="input input-bordered"
                                     />
+                                    <label className="label">
+                                        <Link to="/login" className="label-text-alt link link-hover">
+                                            Sign in
+                                        </Link>
+                                    </label>
                                 </div>
-                                <div className="mb-10">
-                                    <button
+                                <div className="form-control mt-6">
+                                    {loading ? (
+                                        <button className="btn loading">loading</button>
+                                    ) : (<button
                                         type="submit"
-                                        className="
-                                            w-full
-                                            px-4
-                                            py-3
-                                            bg-indigo-500
-                                            hover:bg-indigo-700
-                                            rounded-md
-                                            text-white
-                                            "
+                                        className="btn btn-primary"
                                     >
                                         Reset Password
-                                    </button>
+                                    </button>)}
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </>
+
     )
 }
 

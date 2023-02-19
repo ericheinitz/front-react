@@ -11,7 +11,6 @@ import GuestLayout from "./layouts/GuestLayout";
 
 function App() {
   return (
-    <div className="bg-slate-100 min-h-screen">
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
@@ -23,7 +22,6 @@ function App() {
           <Route path="/password-reset/:token" element={<ResetPassword />} />
         </Route>
       </Routes>
-    </div>
   )
 }
 export default App

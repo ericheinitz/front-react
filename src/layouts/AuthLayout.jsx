@@ -6,63 +6,57 @@ const AuthLayout = () => {
 
     return user ? (
         <>
-            <nav className="bg-indigo-900 text-white shadow-xl px-2 py-2.5 sm:px-4">
-                <div
-                    className="container mx-auto flex flex-wrap items-center justify-between"
-                    bis_skin_checked="1"
-                >
-                    <a href="https://middle-code.com/" className="flex items-center">
-                        middle-code
-                    </a>
-                    <div
-                        className="hidden w-full md:block md:w-auto"
-                    >
-                        <ul
-                            className="
-                            mt-4
-                            flex flex-col
-                            rounded-lg
-                            p-4
-                            md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium
-                        "
-                        >
+            <div className="navbar bg-base-300 shadow-2xl">
+                <div className="flex-1">
+                    <a className="btn btn-ghost normal-case text-xl text-orange-300">Middle-Code</a>
+                    <Link
+                        to="/"
+                        className="btn btn-ghost normal-case text-xl"
+                        aria-current="page"
+                    >Home</Link>
+                </div>
+                <div className="flex-none">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle">
+                            <div className="indicator">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                <span className="badge badge-sm indicator-item">8</span>
+                            </div>
+                        </label>
+                        <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
+                            <div className="card-body">
+                                <span className="font-bold text-lg">8 Items</span>
+                                <span className="text-info">Subtotal: $999</span>
+                                <div className="card-actions">
+                                    <button className="btn btn-primary btn-block">View cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle">
+                            <div className="avatar placeholder">
+                                <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
+                                    <span>E</span>
+                                </div>
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
-                                <Link
-                                    to="/"
-                                    className="block rounded py-2 pr-4 pl-3 text-white"
-                                    aria-current="page"
-                                >Home</Link>
+                                <a className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </a>
                             </li>
-                            {user ? (
-                                <li>
-                                    <button onClick={logout} className="block rounded py-2 pr-4 pl-3 text-orange-500">
-                                        Logout
-                                    </button>
-                                </li>
-                            ) :
-                                (<>
-                                    <li>
-                                        <Link
-                                            to="/login"
-                                            className="block rounded py-2 pr-4 pl-3 text-white"
-                                            aria-current="page"
-                                        >Login</Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/register"
-                                            className="block rounded py-2 pr-4 pl-3 text-white"
-                                            aria-current="page"
-                                        >Register</Link>
-                                    </li>
-                                </>)}
+                            <li><a>Settings</a></li>
+                            <li><a onClick={logout}>Logout</a></li>
                         </ul>
-                    </div >
-                </div >
-            </nav >
+                    </div>
+                </div>
+            </div>
             <Outlet />
         </>
-        )
+    )
         : <Navigate to="/login" />
 }
 

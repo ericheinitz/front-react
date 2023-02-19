@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from "react-router-dom"
 import axios from '../api/axios'
 import useAuthContext from '../context/authContext'
 
@@ -6,10 +7,12 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('')
     const [errors, setErrors] = useState({})
     const [status, setStatus] = useState(null)
+    const [loading, setLoading] = useState(false)
     const { csrf } = useAuthContext()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         await csrf()
         setErrors({})
         setStatus(null)
@@ -18,59 +21,39 @@ const ForgotPassword = () => {
                 email: email,
             })
             setStatus(response.data.status)
+            setLoading(false)
         } catch (error) {
             if (error.response.status === 422) {
+                setLoading(false)
                 setErrors(error.response.data.errors)
             }
         }
     }
 
     return (
-        <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
-            <div className="container mx-auto">
-                <div className="-mx-4 flex flex-wrap">
-                    <div className="w-full px-4">
-                        <div
-                            className="
-                                shadow-xl
-                                relative
-                                mx-auto
-                                max-w-[525px]
-                                overflow-hidden
-                                rounded-lg
-                                bg-white
-                                py-16
-                                px-10
-                                text-center
-                                sm:px-12
-                                md:px-[60px]
-                            "
-                        >
+        <>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row-reverse">
+                    <div className="text-center lg:text-left">
+                        <h1 className="text-5xl font-bold">Recovery Password</h1>
+                        <p className="py-6">Forgot your password? Let us know your email address and we will
+                            email you a password reset link.</p>
+                    </div>
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                        <div className="card-body">
                             {status && <div className="bg-green-700 m-2 p-2 rounded text-white">{status}</div>}
-                            <div className="mb-10 text-center md:mb-16">Forgot your password? Let us know your email address and we will
-                                email you a password reset link.</div>
                             <form onSubmit={handleSubmit}>
-                                <div className="mb-4">
-                                    <input
-                                        type="email"
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Email</span>
+                                    </label>
+                                    <input type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="Email"
-                                        className="
-                                            bordder-[#E9EDF4]
-                                            w-full
-                                            rounded-md
-                                            border
-                                            bg-[#FCFDFE]
-                                            py-3
-                                            px-5
-                                            text-base text-body-color
-                                            placeholder-[#ACB6BE]
-                                            outline-none
-                                            focus:border-primary
-                                            focus-visible:shadow-none
-                                            "
+                                        placeholder="email"
+                                        className="input input-bordered"
                                     />
+
                                     {errors.email && (
                                         <div className="flex">
                                             <span className="text-red-400 text-sm m-2 p-2">
@@ -78,29 +61,28 @@ const ForgotPassword = () => {
                                             </span>
                                         </div>
                                     )}
+                                    <label className="label">
+                                        <Link to="/login" className="label-text-alt link link-hover">
+                                            Sign in
+                                        </Link>
+                                    </label>
                                 </div>
-                                <div className="mb-10">
-                                    <button
+                                <div className="form-control mt-6">
+                                    {loading ? (
+                                        <button className="btn loading">loading</button>
+                                    ) : (<button
                                         type="submit"
-                                        className="
-                                            w-full
-                                            px-4
-                                            py-3
-                                            bg-indigo-500
-                                            hover:bg-indigo-700
-                                            rounded-md
-                                            text-white
-                                            "
+                                        className="btn btn-primary"
                                     >
                                         Submit
-                                    </button>
+                                    </button>)}
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </>
     )
 }
 

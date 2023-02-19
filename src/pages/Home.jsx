@@ -4,19 +4,16 @@ const Home = () => {
     const { user } = useAuthContext()
 
     return (
-        <div className='max-w-7xl mx-auto mt-12'>
-            {user ? (
-                <div>
-                    <h1 className="text-2xl font-bold">Welcome {user?.name}</h1>
-                    <p className="text-gray-500">You are logged in!</p>
-                </div>
-            ) : (
-                <div>
-                    <h1 className="text-2xl font-bold">Welcome</h1>
-                    <p className="text-gray-500">You are not logged in!</p>
-                </div>
-            )}
-        </div>
+        <>
+            <div className="mockup-code m-20 shadow-2xl">
+                <pre data-prefix="$"><code>npm i middle-code </code></pre>
+                <pre data-prefix=">" className="text-warning"><code>installing...</code></pre>
+                <pre data-prefix=">" className="text-success"><code>Done!</code></pre>
+                <pre data-prefix=">" className="bg-warning text-warning-content"><code>Hello!{user?.name}</code></pre>
+            </div>
+        </>
+
+
     )
 }
 

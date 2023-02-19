@@ -15,9 +15,16 @@ export const AuthProvider = ({ children }) => {
 
     const getUser = async () => {
         setLoading(true); // Establecer estado de carga en true
-        const { data } = await axios.get("/api/user");
-        setUser(data);
-        setLoading(false);
+        try {
+            const { data } = await axios.get("/api/user");
+            setUser(data);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            // if (error.response && error.response.status === 401) {
+            //     navigate('/login');
+            // }
+        }
     }
 
     const login = async ({ email, password }) => {
