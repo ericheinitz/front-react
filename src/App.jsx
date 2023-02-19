@@ -1,9 +1,12 @@
-import { Navigate, Outlet, Link } from "react-router-dom";
+import { Navigate, Link, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
-    <div className="bg-slate-100">
-      <nav className="bg-indigo-900 text-white px-2 py-2.5 sm:px-4">
+    <div className="bg-slate-100 min-h-screen">
+      <nav className="bg-indigo-900 text-white shadow-xl px-2 py-2.5 sm:px-4">
         <div
           className="container mx-auto flex flex-wrap items-center justify-between"
           bis_skin_checked="1"
@@ -48,6 +51,14 @@ function App() {
           </div >
         </div >
       </nav >
+      <div className="max-w-7xl mx-auto mt-6">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
     </div >
   )
 }
