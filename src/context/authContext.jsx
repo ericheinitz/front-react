@@ -1,19 +1,23 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import axios from "../api/axios"
 import { useNavigate } from "react-router-dom"
+import Loading from '../components/Loading';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(true) // Estado de carga
     const navigate = useNavigate();
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
     const getUser = async () => {
+        setLoading(true); // Establecer estado de carga en true
         const { data } = await axios.get("/api/user");
         setUser(data);
+        setLoading(false);
     }
 
     const login = async ({ email, password }) => {
@@ -64,11 +68,14 @@ export const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    return (
+    // Se envuelve todo el contenido en una expresión ternaria que comprueba si se está cargando el usuario
+    return loading ? (
+        <Loading />
+    ) : (
         <AuthContext.Provider value={{ user, errors, getUser, login, register, logout, csrf }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 
 }
 
