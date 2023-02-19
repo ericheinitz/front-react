@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async ({ email, password }) => {
         await csrf()
+        setErrors({})
         try {
             await axios.post('/login', {
                 email: email,
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async ({ name, email, password, password_confirmation }) => {
         await csrf()
+        setErrors({})
         try {
             await axios.post('/register', {
                 name: name,
