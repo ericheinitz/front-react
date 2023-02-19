@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom"
+import middleCodeLogo from "../assets/img/middle-code-logo.png"
 import useAuthContext from "../context/authContext"
 
 
@@ -26,6 +27,7 @@ const Login = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
+                        <img src={middleCodeLogo} className="mx-auto w-48 mb-5" alt="" />
                         <form onSubmit={handleLogin}>
                             <div className="form-control">
                                 <label className="label">
@@ -81,7 +83,7 @@ const Login = () => {
                                     <button className="btn loading">loading</button>
                                 ) : (<button
                                     type="submit"
-                                    className="btn btn-primary"
+                                    className="btn btn-success"
                                 >
                                     Login
                                 </button>)}

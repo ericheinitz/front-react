@@ -13,7 +13,7 @@
     width: 200px;
     height: 200px;
     border: 8px solid;
-    border-color: #3d5af1 transparent #f13d3d transparent;
+    border-color: rgb(54,211,153) transparent rgb(54,211,153) transparent;
     border-radius: 50%;
     animation: spin-anim 1.2s linear infinite;
 }
