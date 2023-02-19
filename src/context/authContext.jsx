@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import axios from "../api/axios"
 import { useNavigate } from "react-router-dom"
 
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
                 email: email,
                 password: password,
             })
-            getUser()
+            await getUser()
             navigate('/')
         } catch (error) {
             if (error.response.status === 422) {
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const register = async ({name, email, password, password_confirmation}) => {
+    const register = async ({ name, email, password, password_confirmation }) => {
         await csrf()
         try {
             await axios.post('/register', {
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
                 password: password,
                 password_confirmation: password_confirmation,
             })
-            getUser()
+            await getUser()
             navigate('/')
         } catch (error) {
             if (error.response.status === 422) {
@@ -51,10 +51,16 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = async () => {
-        await axios.post('/logout')
-        setUser(null)
-        navigate('/')
+        await axios.post('/logout').then(() => {
+            setUser(null)
+        })
     }
+
+    useEffect(() => {
+        if (!user) {
+            getUser()
+        }
+    }, [])
 
     return (
         <AuthContext.Provider value={{ user, errors, getUser, login, register, logout }}>

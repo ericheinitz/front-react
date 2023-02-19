@@ -1,14 +1,7 @@
-import { useEffect } from 'react'
 import useAuthContext from '../context/authContext'
 
 const Home = () => {
-    const { user, getUser } = useAuthContext()
-
-    useEffect(() => {
-        if (!user) {
-            getUser()
-        }
-    }, [])
+    const { user } = useAuthContext()
 
     return (
         <span>
