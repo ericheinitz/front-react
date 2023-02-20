@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import axios from '../../api/axios'
 import Breadcrumbs from '../../components/Breadcrumbs'
 import LoadingShow from '../../components/loadings/LoadingShow'
+import ListProducts from './ListProducts'
 
 const ShowProduct = () => {
   const { id } = useParams();
@@ -39,11 +40,11 @@ const ShowProduct = () => {
         <>
           <Breadcrumbs links={links} />
           {product && (
-            <div className='card bg-base-300 shadow-2xl shadow-emerald-900'>
+            <div className='card bg-base-300 shadow-2xl'>
               <div className='card-body'>
                 <div className="flex items-center justify-between">
                   <h2 className='card-title'>{product.name}</h2>
-                  <Link to={`/product/${product.id}/edit`} className='btn btn-warning'>
+                  <Link to={`/product/${product.id}/edit`} className='btn btn-sm btn-outline btn-warning'>
                     Edit
                   </Link>
                 </div>

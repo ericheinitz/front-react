@@ -80,7 +80,7 @@ const CreateEditProduct = () => {
       ) : (
         <>
           <Breadcrumbs links={links} />
-          <div className="card flex-shrink-0 shadow-2xl shadow-amber-900 bg-base-300">
+          <div className="card flex-shrink-0 shadow-2xl shadow-amber-900 bg-base-300 text-emerald-400">
             <div className="card-body">
               <form onSubmit={onSubmit}>
                 <div className='form-control'>
