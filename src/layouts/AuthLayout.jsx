@@ -15,6 +15,11 @@ const AuthLayout = () => {
                         className="btn btn-ghost normal-case text-xl"
                         aria-current="page"
                     >Home</Link>
+                    <Link
+                        to="/products"
+                        className="btn btn-ghost normal-case text-xl"
+                        aria-current="page"
+                    >Products</Link>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">
