@@ -38,7 +38,6 @@ const ShowProduct = () => {
       ) : (
         <>
           <Breadcrumbs links={links} />
-          <LoadingShow />
           {product && (
             <div className='card bg-base-300 shadow-2xl shadow-emerald-900'>
               <div className='card-body'>
