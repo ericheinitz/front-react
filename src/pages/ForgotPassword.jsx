@@ -40,7 +40,7 @@ const ForgotPassword = () => {
                         <p className="py-6">Forgot your password? Let us know your email address and we will
                             email you a password reset link.</p>
                     </div>
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl shadow-emerald-900 bg-base-100">
                         <div className="card-body">
                             {status && <div className="bg-green-700 m-2 p-2 rounded text-white">{status}</div>}
                             <img src={middleCodeLogo} className="mx-auto w-48 mb-5" alt="" />
