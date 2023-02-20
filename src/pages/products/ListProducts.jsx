@@ -14,7 +14,8 @@ const ListProducts = () => {
     const getAllProducts = async () => {
         setLoadingTable(true)
         const response = await axios.get('api/products')
-        setProducts(response.data)
+        const sortedProducts = response.data.slice().sort((a, b) => b.id - a.id);
+        setProducts(sortedProducts);
         setLoadingTable(false)
     }
 
@@ -28,7 +29,7 @@ const ListProducts = () => {
     }, [])
 
     return (
-        <>
+        <div className='mx-80'>
             {loading ? (
                 <>
                     <Breadcrumbs links={links} />
@@ -37,10 +38,13 @@ const ListProducts = () => {
             ) : (
                 <>
                     <Breadcrumbs links={links} />
-                    <div className="card bg-base-300 mx-20 shadow-2xl shadow-emerald-900">
+                    <div className="card bg-base-300 shadow-2xl shadow-emerald-900">
                         <div className="card-body">
-                            <h2 className="card-title">Products</h2>
-                            <Link to='/product' className='btn btn-success'>Create</Link>
+                            <div className="flex items-center justify-between">
+                                <h2 className="card-title">Products</h2>
+                                <Link to='/product' className='btn btn-success'>Create</Link>
+                            </div>
+
                             <table className="table table-striped mt-3">
                                 <thead>
                                     <tr>
@@ -73,7 +77,7 @@ const ListProducts = () => {
                     </div>
                 </>
             )}
-        </>
+        </div>
 
     )
 }

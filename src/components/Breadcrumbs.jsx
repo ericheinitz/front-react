@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Breadcrumbs = ({ links }) => {
     return (
-        <div className="text-sm breadcrumbs mx-28 my-3">
+        <div className="text-sm breadcrumbs mx-3 my-3">
             <ul>
                 {links.map((link, index) => (
                     <li key={index}>
