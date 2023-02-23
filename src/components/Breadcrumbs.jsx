@@ -13,9 +13,9 @@ const Breadcrumbs = ({ links }) => {
                                 {link.label}
                             </Link>
                         ) : (
-                            <a>
+                            <p>
                                 {link.label}
-                            </a>
+                            </p>
                         )}
                     </li>
                 ))}

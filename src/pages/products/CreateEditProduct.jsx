@@ -13,7 +13,7 @@ const CreateEditProduct = () => {
   const links = [
     { label: 'Home', path: '/' },
     { label: 'Products', path: '/products' },
-    { label: isEditing ? 'Edit Product' : 'Create Product', path: null },
+    { label: isEditing && product ? `${product.name} EDIT` : `Create` ? '😥' : '', path: null },
   ];
 
   const [name, setName] = useState('')

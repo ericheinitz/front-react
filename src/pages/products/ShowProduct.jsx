@@ -12,7 +12,7 @@ const ShowProduct = () => {
   const links = [
     { label: 'Home', path: '/' },
     { label: 'Products', path: '/products' },
-    { label: 'Show Product', path: null },
+    { label: loading ? '...' : product ? `${product.name}` : '...', path: null },
   ];
 
   useEffect(() => {
